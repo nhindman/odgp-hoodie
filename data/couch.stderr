@@ -1,0 +1,36 @@
+
+heart_beat_kill_pid = 42698
+heart_beat_timeout = 11
+heart: Fri Jun  6 01:34:20 2014: Erlang has closed.
+/usr/local/Cellar/couchdb/1.5.1/bin/couchdb: line 336: echo: write error: Broken pipe
+heart: Fri Jun  6 01:34:20 2014: Executed "/usr/local/Cellar/couchdb/1.5.1/bin/couchdb -k" -> 256. Terminating.
+
+heart_beat_kill_pid = 42782
+heart_beat_timeout = 11
+heart: Fri Jun  6 02:11:40 2014: Erlang has closed.
+/usr/local/Cellar/couchdb/1.5.1/bin/couchdb: line 336: echo: write error: Broken pipe
+heart: Fri Jun  6 02:11:40 2014: Executed "/usr/local/Cellar/couchdb/1.5.1/bin/couchdb -k" -> 256. Terminating.
+
+heart_beat_kill_pid = 43118
+heart_beat_timeout = 11
+heart: Fri Jun  6 02:21:25 2014: Erlang has closed.
+/usr/local/Cellar/couchdb/1.5.1/bin/couchdb: line 336: echo: write error: Broken pipe
+heart: Fri Jun  6 02:21:25 2014: Executed "/usr/local/Cellar/couchdb/1.5.1/bin/couchdb -k" -> 256. Terminating.
+
+heart_beat_kill_pid = 43199
+heart_beat_timeout = 11
+heart: Fri Jun  6 02:24:19 2014: Erlang has closed.
+/usr/local/Cellar/couchdb/1.5.1/bin/couchdb: line 336: echo: write error: Broken pipe
+heart: Fri Jun  6 02:24:19 2014: Executed "/usr/local/Cellar/couchdb/1.5.1/bin/couchdb -k" -> 256. Terminating.
+
+heart_beat_kill_pid = 43289
+heart_beat_timeout = 11
+heart: Fri Jun  6 02:24:48 2014: Erlang has closed.
+/usr/local/Cellar/couchdb/1.5.1/bin/couchdb: line 336: echo: write error: Broken pipe
+heart: Fri Jun  6 02:24:48 2014: Executed "/usr/local/Cellar/couchdb/1.5.1/bin/couchdb -k" -> 256. Terminating.
+
+heart_beat_kill_pid = 43395
+heart_beat_timeout = 11
+heart: Fri Jun  6 02:26:59 2014: Erlang has closed.
+/usr/local/Cellar/couchdb/1.5.1/bin/couchdb: line 336: echo: write error: Broken pipe
+heart: Fri Jun  6 02:26:59 2014: Executed "/usr/local/Cellar/couchdb/1.5.1/bin/couchdb -k" -> 256. Terminating.
