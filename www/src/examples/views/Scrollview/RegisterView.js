@@ -268,7 +268,7 @@ define(function(require, exports, module) {
 
         this.buttonSurface.on('click', function(){
             this._eventOutput.emit('validated user from register');
-            this._eventOutput.emit('signin'); 
+            hoodie.account.signOut(); 
             var username = $('.email-input').val();
             var password = $('.password-input').val();
             hoodie.account.signUp(username,password);
@@ -283,7 +283,7 @@ define(function(require, exports, module) {
               .done(function (tasks) {
                 console.log("TASKS#######",tasks)
               });
-            hoodie.account.on('signin', function (user) {
+            hoodie.account.on('signup', function (user) {
                 console.log("******",user)
             });
 

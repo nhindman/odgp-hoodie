@@ -538,7 +538,7 @@ define(function(require, exports, module) {
     var scale = 4;
     this.paymentSuccessContainer = new Surface({
         classes: ["payment-success-container"],
-        content: '<div style="background-color:rgba(0,0,0,0.6); color:white; text-align: center;padding-top: '+13*scale+'px;width: 100%;height:100%;border-radius: 50%;font-size: '+14*scale+'px; line-height:'+23*scale+'px">Payment Successful</div>',
+        content: '<div style="background-color:rgba(0,0,0,0.75); color:white; text-align: center;padding-top: '+13*scale+'px;width: 100%;height:100%;border-radius: 50%;font-size: '+14*scale+'px; line-height:'+23*scale+'px">Payment Successful</div>',
         size: [75*scale,75*scale],
         properties: {
         }
