@@ -133,7 +133,7 @@ define(function(require, exports, module) {
                 // debugger;
                 this._eventOutput.emit('pass created');
                 this.moveDown();
-            }.bind(this),4000);
+            }.bind(this),400000);
             // debugger;
         }.bind(this));    
 
@@ -535,10 +535,11 @@ define(function(require, exports, module) {
     var paymentSuccessWidth = window.innerWidth/2.5;
     var paymentSuccessHeight = window.innerHeight/3.6;
 
+    var scale = 4;
     this.paymentSuccessContainer = new Surface({
         classes: ["payment-success-container"],
-        content: '<div style="background-color:rgba(0,0,0,0.6); color:white; text-align: center;padding-top: 13px;width: 100%;height:100%;border-radius: 50%;font-size: 14px">Payment Successful</div>',
-        size: [75,75],
+        content: '<div style="background-color:rgba(0,0,0,0.6); color:white; text-align: center;padding-top: '+13*scale+'px;width: 100%;height:100%;border-radius: 50%;font-size: '+14*scale+'px; line-height:'+23*scale+'px">Payment Successful</div>',
+        size: [75*scale,75*scale],
         properties: {
 // <<<<<<< HEAD
 //             backgroundColor: "black", 
@@ -588,7 +589,7 @@ define(function(require, exports, module) {
     // this.paymentSuccessContainer.add(this.paymentSuccessMsgMod).add(this.paymentSuccessMsg);
     Timer.setTimeout(function(){
         console.log("set timeout fired######");
-        this.paymentSuccessMod.setTransform(Transform.scale(2,2,2),{duration:200})
+        this.paymentSuccessMod.setTransform(Transform.scale(2/scale,2/scale,2/scale),{duration:200})
     }.bind(this),1000)
 
    };
