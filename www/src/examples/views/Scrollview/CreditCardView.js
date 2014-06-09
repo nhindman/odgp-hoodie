@@ -98,7 +98,7 @@ define(function(require, exports, module) {
             content: '<div>Payment</div>',
             size: [true, true], 
             properties: {
-                fontColor: "white",
+                fontColor: "white"
             }
         });
 
@@ -201,7 +201,7 @@ define(function(require, exports, module) {
         this.cardNameMod = new Modifier({
             transform: Transform.translate(0,0,100000), 
             origin: [0.38, 0.02]
-        })
+        });
 
         this.firstX = new Surface({
             content: '<img width="33" src="src/img/red-x.png"/>', 
@@ -537,22 +537,32 @@ define(function(require, exports, module) {
 
     this.paymentSuccessContainer = new Surface({
         classes: ["payment-success-container"],
-        content: '<div>Payment Successful</div>',
+        content: '<div style="background-color:rgba(0,0,0,0.6); color:white; text-align: center;padding-top: 13px;width: 100%;height:100%;border-radius: 50%;font-size: 14px">Payment Successful</div>',
         size: [75,75],
         properties: {
-            backgroundColor: "black", 
-            // overflow: 'hidden', 
-            color: "white", 
-            textAlign: "center",
-            paddingTop: "20px", 
-            borderRadius: "50%",
-            fontSize: "80%", 
-            lineHeight: "20px"
+// <<<<<<< HEAD
+//             backgroundColor: "black", 
+//             // overflow: 'hidden', 
+//             color: "white", 
+//             textAlign: "center",
+//             paddingTop: "20px", 
+//             borderRadius: "50%",
+//             fontSize: "80%", 
+//             lineHeight: "20px"
+// =======
+// //            backgroundColor: "black",
+// //            // overflow: 'hidden',
+// //            color: "white",
+// //            textAlign: "center",
+// //            paddingTop: "13px",
+// //            borderRadius: "50%",
+// //            fontSize: "14px"
+// >>>>>>> f442de6bd7b6a072a299793c885697894f0c6a52
         }
     });
 
-    this.paymentSuccessMod = new Modifier({
-        origin: [0.5, 0.4], 
+    this.paymentSuccessMod = new StateModifier({
+        origin: [0.5, 0.4],
         transform: Transform.scale(0,0,0)
     });
     this.paymentSuccessMod2 = new Modifier({
@@ -581,7 +591,7 @@ define(function(require, exports, module) {
         this.paymentSuccessMod.setTransform(Transform.scale(2,2,2),{duration:200})
     }.bind(this),1000)
 
-   } 
+   };
 
    CreditCardView.prototype.moveUp = function(){
         this.layoutModifier.setTransform(

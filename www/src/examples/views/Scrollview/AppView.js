@@ -98,9 +98,10 @@ define(function(require, exports, module) {
         this._eventInput.emit('menuToggle');
         this._eventOutput.emit('ticketToggle');
     }.bind(this));
-    this._eventInput.on('pass closed', function(){
+    this._eventInput.on('pass closed', function(data, numPasses){
       console.log("pass closed received in appview");
       this.pageViewMaskMod.setTransform(Transform.translate(0,0,-4));
+      this.menuView.ticketView._eventInput.emit('printTicket', data, numPasses);
       this._eventOutput.emit('pass closed');
       this.passDisappear();
 //      this.pageView.gymli
