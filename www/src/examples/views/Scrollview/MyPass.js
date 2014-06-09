@@ -122,7 +122,7 @@ define(function(require, exports, module) {
         
         //click on closeIcon closes the welcomeback page
         this.closeIcon.on('click', function(){
-            this._eventOutput.emit('pass closed')
+            this._eventOutput.emit('pass closed', this.options.data, this.numPasses)
         }.bind(this));
 
         this.hamburgerSurface.on('click', function(){
