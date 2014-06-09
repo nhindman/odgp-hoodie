@@ -133,7 +133,7 @@ define(function(require, exports, module) {
                 // debugger;
                 this._eventOutput.emit('pass created');
                 this.moveDown();
-            }.bind(this),400000);
+            }.bind(this),4000);
             // debugger;
         }.bind(this));    
 
@@ -541,24 +541,6 @@ define(function(require, exports, module) {
         content: '<div style="background-color:rgba(0,0,0,0.6); color:white; text-align: center;padding-top: '+13*scale+'px;width: 100%;height:100%;border-radius: 50%;font-size: '+14*scale+'px; line-height:'+23*scale+'px">Payment Successful</div>',
         size: [75*scale,75*scale],
         properties: {
-// <<<<<<< HEAD
-//             backgroundColor: "black", 
-//             // overflow: 'hidden', 
-//             color: "white", 
-//             textAlign: "center",
-//             paddingTop: "20px", 
-//             borderRadius: "50%",
-//             fontSize: "80%", 
-//             lineHeight: "20px"
-// =======
-// //            backgroundColor: "black",
-// //            // overflow: 'hidden',
-// //            color: "white",
-// //            textAlign: "center",
-// //            paddingTop: "13px",
-// //            borderRadius: "50%",
-// //            fontSize: "14px"
-// >>>>>>> f442de6bd7b6a072a299793c885697894f0c6a52
         }
     });
 

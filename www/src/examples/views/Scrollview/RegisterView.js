@@ -287,7 +287,6 @@ define(function(require, exports, module) {
                 console.log("******",user)
             });
 
-
             // console.log("Hers signup:", signup)
             // hoodie.account.on('signup', function(user){
             //     console.log("HERE's USEER",user);
