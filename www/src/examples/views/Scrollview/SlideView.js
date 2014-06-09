@@ -604,17 +604,7 @@ define(function(require, exports, module) {
       mapSurface.pipe(this.detailScrollview);  // pipe the detail surface to scrollview
       mapSurface.pipe(this.sync);   // make detail surface become draggable. In fact we are move the entire scrollview.
       this.detailSequence.push(mapSurface);  // the push method is pushing surface to detailScrollvew.
-      
-      //listens for click on map surface
-      // mapSurface.on('click', function() {
-      //   //direct to google maps
-      //   console.log("map surface clicked");
-        
 
-
-
-      //   // location.href = "maps://maps.google.com/?center=40.765819,-73.975866&zoom=14&views=traffic";
-      // });
 
   };
 
@@ -658,7 +648,15 @@ define(function(require, exports, module) {
         }
       }while(d == d.parentNode);
       this.detailScrollviewPos.set(thirdWindowHeight+2*gymDetailItemHeight,this.options.transition);
-      this.detailScrollview.setVelocity(-1);
+
+      if (this.detailScrollview._onEdge != 1)this.detailScrollview.setVelocity(-1);
+      else {
+        this.detailScrollview._springState = 0;
+        this.detailScrollview._physicsEngine.detachAll();
+        Timer.setTimeout(function(){
+          this.detailScrollview._eventInput.emit('end',{velocity: 3});
+        }.bind(this),270)
+      }
   };
 
   SlideView.prototype.stopScrolling = function(v){

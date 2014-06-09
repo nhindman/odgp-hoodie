@@ -270,9 +270,14 @@ define(function(require, exports, module) {
             this._eventOutput.emit('validated user from register'); 
             console.log("EMAIL INPUT VAL",$('.email-input').val())
             var signup = hoodie.account.signUp($('.email-input').val(),$('.password-input').val());
-            console.log("Heres signup:", signup);
+            console.log("Hers signup:", signup)
             hoodie.account.on('signup', function(user){
                 console.log("HERE's USEER",user);
+                debugger;
+            });
+            signUp(email, pass).done(function(email, pass){
+                console.log("HERE's email",email);
+                console.log("HERE's email",pass);
                 debugger;
             });
         }.bind(this));
