@@ -128,11 +128,13 @@ define(function(require, exports, module) {
         this.OK.on('click', function(){
             console.log("OK clicked");
             this.paymentSuccess();
+            // debugger;
             Timer.setTimeout(function(){
+                // debugger;
                 this._eventOutput.emit('pass created');
                 this.moveDown();
             }.bind(this),4000);
-
+            debugger;
         }.bind(this));    
 
     };
@@ -533,11 +535,12 @@ define(function(require, exports, module) {
     var paymentSuccessWidth = window.innerWidth/2.5;
     var paymentSuccessHeight = window.innerHeight/3.6;
 
-    this.paymentSuccessContainer = new ContainerSurface({
+    this.paymentSuccessContainer = new Surface({
         classes: ["payment-success-container"],
+        content: '<div style="background-color: rgba(0,0,0,0.6)">Payment Successful</div>',
         size: [100,100],
         properties: {
-            backgroundColor: "black", 
+            // backgroundColor: "black", 
             overflow: 'hidden', 
             color: "white"
         }
@@ -553,6 +556,22 @@ define(function(require, exports, module) {
     });
 
     this.layout.content.add(this.paymentSuccessMod2).add(this.paymentSuccessMod).add(this.paymentSuccessContainer);
+
+    // this.paymentSuccessMsg = new Surface({
+    //     classes: ["payment-success-mg"],
+        
+    //     properties: {
+    //         color: "white", 
+    //         opacity: 1
+    //     }
+    // });
+
+    // this.paymentSuccessMsgMod = new Modifier({
+    //     origin: [0.5,0.5], 
+    //     transform: Transform.scale(0,0,10012100000000000000000000000),
+    // })
+
+    // this.paymentSuccessContainer.add(this.paymentSuccessMsgMod).add(this.paymentSuccessMsg);
     Timer.setTimeout(function(){
         console.log("set timeout fired######");
         this.paymentSuccessMod.setTransform(Transform.scale(2,2,2),{duration:200})
