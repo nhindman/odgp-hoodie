@@ -267,19 +267,35 @@ define(function(require, exports, module) {
         });
 
         this.buttonSurface.on('click', function(){
-            this._eventOutput.emit('validated user from register'); 
-            console.log("EMAIL INPUT VAL",$('.email-input').val())
-            var signup = hoodie.account.signUp($('.email-input').val(),$('.password-input').val());
-            console.log("Hers signup:", signup)
-            hoodie.account.on('signup', function(user){
-                console.log("HERE's USEER",user);
-                debugger;
+            this._eventOutput.emit('validated user from register');
+            this._eventOutput.emit('signin'); 
+            var username = $('.email-input').val();
+            var password = $('.password-input').val();
+            hoodie.account.signUp(username,password);
+            var type = 'task';
+            var attributes = {title: 'Try out hoodie today'};
+            console.log("hoodie.account.username#######",hoodie.account.username)
+            hoodie.store.add(type, attributes)
+              .done(function (newObject) {
+                console.log("NEEWWWWW#######",newObject);
+              });
+            hoodie.store.findAll(type)
+              .done(function (tasks) {
+                console.log("TASKS#######",tasks)
+              });
+            hoodie.account.on('signin', function (user) {
+                console.log("******",user)
             });
-            signUp(email, pass).done(function(email, pass){
-                console.log("HERE's email",email);
-                console.log("HERE's email",pass);
-                debugger;
-            });
+
+
+            // console.log("Hers signup:", signup)
+            // hoodie.account.on('signup', function(user){
+            //     console.log("HERE's USEER",user);
+            // });
+            // signup(email, pass).done(function(email, pass){
+            //     console.log("#####HERE's email",email);
+            //     console.log("HERE's email",pass);
+            // });
         }.bind(this));
 
         //TERMS AND CONDITIONS

@@ -546,7 +546,8 @@ define(function(require, exports, module) {
             textAlign: "center",
             paddingTop: "20px", 
             borderRadius: "50%",
-            fontSize: "85%"
+            fontSize: "80%", 
+            lineHeight: "20px"
         }
     });
 
