@@ -134,7 +134,7 @@ define(function(require, exports, module) {
                 this._eventOutput.emit('pass created');
                 this.moveDown();
             }.bind(this),4000);
-            debugger;
+            // debugger;
         }.bind(this));    
 
     };
@@ -537,19 +537,22 @@ define(function(require, exports, module) {
 
     this.paymentSuccessContainer = new Surface({
         classes: ["payment-success-container"],
-        content: '<div style="background-color: rgba(0,0,0,0.6)">Payment Successful</div>',
-        size: [100,100],
+        content: '<div>Payment Successful</div>',
+        size: [75,75],
         properties: {
-            // backgroundColor: "black", 
-            overflow: 'hidden', 
-            color: "white"
+            backgroundColor: "black", 
+            // overflow: 'hidden', 
+            color: "white", 
+            textAlign: "center",
+            paddingTop: "20px", 
+            borderRadius: "50%",
+            fontSize: "85%"
         }
     });
 
     this.paymentSuccessMod = new Modifier({
         origin: [0.5, 0.4], 
-        transform: Transform.scale(0,0,0.1),
-        opacity: 0.6
+        transform: Transform.scale(0,0,0)
     });
     this.paymentSuccessMod2 = new Modifier({
         transform:Transform.translate(0,0,100120)
