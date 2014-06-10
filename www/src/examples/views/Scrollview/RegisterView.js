@@ -11,7 +11,10 @@ define(function(require, exports, module) {
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
     var chatRef = new Firebase('https://burning-fire-4148.firebaseio.com');
-    var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {});
+    var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+       console.log(user);
+       
+    });
 
     function RegisterView(options, data) {
         View.apply(this, arguments);
@@ -277,9 +280,9 @@ define(function(require, exports, module) {
 
             var email = $('.email-input').val();
             var password = $('.password-input').val();
-            console.log(email)
-            console.log(password)
-            console.log(chatRef)
+            console.log(email);
+            console.log(password);
+            console.log(chatRef);
 
             auth.createUser(email, password, function(error, user) {  
               console.log("logging new registered user");
@@ -294,8 +297,8 @@ define(function(require, exports, module) {
                 });
             };
 
-            console.log("AUUUUUTH", auth.email)
-            console.log("AUUUUUTH", auth.login.email
+            console.log("AUUUUUTH", auth.email);
+            console.log("AUUUUUTH", auth.login.email);
 
         }.bind(this));
 
