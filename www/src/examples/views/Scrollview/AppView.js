@@ -136,8 +136,9 @@ define(function(require, exports, module) {
     }.bind(this));
     this._eventOutput.on('ticketToggle', function(){
       this.pageViewMaskMod.setTransform(Transform.translate(0,0,-4));
-      this.pageView.gymListView.detail.slide.passViewMod.setTransform(Transform.translate(0,-window.innerHeight,0));
-      this.pageView.gymListView.detail.slide.passViewMod.setOpacity(1);
+      this.pageView.gymListView.detail._eventInput.emit('ticketToggle')
+//      this.pageView.gymListView.detail.slide.passViewMod.setTransform(Transform.translate(0,-window.innerHeight,0));
+//      this.pageView.gymListView.detail.slide.passViewMod.setOpacity(1);
     }.bind(this));
   }
 
@@ -207,7 +208,7 @@ define(function(require, exports, module) {
   };
 
   AppView.prototype.passDisappear = function(){
-      if (this.pageView.gymListView && this.pageView.gymListView.detail && this.pageView.gymListView.detail.slide)
+      if (this.pageView.gymListView && this.pageView.gymListView.detail && this.pageView.gymListView.detail.slide && this.pageView.gymListView.detail.slide.passViewMod)
       this.pageView.gymListView.detail.slide.passViewMod.setTransform(Transform.translate(0,0,0));
   };
 

@@ -34,14 +34,19 @@ define(function(require, exports, module) {
     };
 
   DetailView.prototype.createDetails = function(data) {
-    this.slide = new SlideView({ data: data });
+    var slideView = new SlideView({ data: data });
+    this.slide = slideView;
     this.slide.pipe(this._eventOutput);
     console.log("data inside DetailView", data);
     //receives slide-clicked from slide view
     this.slide.on('backButton-clicked', function() {
       this._eventOutput.emit('backButton-clicked');
     }.bind(this));
-  
+      this._eventInput.on('ticketToggle', function(){
+          if (!this.passViewMod) return
+          this.passViewMod.setTransform(Transform.translate(0,-window.innerHeight,0));
+          this.passViewMod.setOpacity(1);
+      }.bind(slideView));
     this.ready = false;
 
     this.add(new Modifier({size: [undefined, window.innerHeight]})).add(this.slide);
