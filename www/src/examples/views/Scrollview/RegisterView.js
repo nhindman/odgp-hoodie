@@ -268,24 +268,25 @@ define(function(require, exports, module) {
 
         this.buttonSurface.on('click', function(){
             this._eventOutput.emit('validated user from register');
-            hoodie.account.signOut(); 
+            // hoodie.account.signOut(); 
             var username = $('.email-input').val();
             var password = $('.password-input').val();
             hoodie.account.signUp(username,password);
-            var type = 'task';
-            var attributes = {title: 'Try out hoodie today'};
-            console.log("hoodie.account.username#######",hoodie.account.username)
+            var type = $('.email-input').val();
+            var attributes = {pw: ''+$('.password-input').val()+''};
             hoodie.store.add(type, attributes)
               .done(function (newObject) {
                 console.log("NEEWWWWW#######",newObject);
               });
-            hoodie.store.findAll(type)
-              .done(function (tasks) {
-                console.log("TASKS#######",tasks)
-              });
-            hoodie.account.on('signup', function (user) {
-                console.log("******",user)
-            });
+
+            // console.log("hoodie.account.username#######",hoodie.account.username)
+            // hoodie.store.findAll(type)
+            //   .done(function (tasks) {
+            //     console.log("TASKS#######",tasks)
+            //   });
+            // hoodie.account.on('signup', function (user) {
+            //     console.log("******",user)
+            // });
 
             // console.log("Hers signup:", signup)
             // hoodie.account.on('signup', function(user){
