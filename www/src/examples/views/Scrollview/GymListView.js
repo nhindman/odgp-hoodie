@@ -81,7 +81,7 @@ define(function(require, exports, module) {
       }.bind(this));
 
       this.detail.on('pass closed', function(data, numPasses){
-        this.detail.slide.confirmPurchaseView.moveDown({duration:0});
+        if (this.detail.slide.confirmPurchaseView) this.detail.slide.confirmPurchaseView.moveDown({duration:0});
         this.detail.slide.moveDown({duration:0});
         this._eventOutput.emit('pass closed', data, numPasses);
         this._eventInput.emit('pipeEventOutput');
