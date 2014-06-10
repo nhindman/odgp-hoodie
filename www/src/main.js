@@ -1,4 +1,5 @@
 var hoodie = new Hoodie();
+
 define(function(require, exports, module) {
   var AppView = require('src/examples/views/Scrollview/AppView.js');
   var Engine = require('famous/core/Engine');

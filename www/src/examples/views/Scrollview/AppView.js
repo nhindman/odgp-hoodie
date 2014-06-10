@@ -1,3 +1,4 @@
+// var chatRef = new Firebase('https://burning-fire-4148.firebaseio.com');
 define(function(require, exports, module) {
   var Surface         = require('famous/core/Surface');
   var RenderNode         = require('famous/core/RenderNode');
@@ -16,6 +17,21 @@ define(function(require, exports, module) {
   var GymData         = require('src/examples/data/GymData.js');
   var StripData       = require('src/examples/data/StripData.js');
   var MenuView        = require('examples/views/Scrollview/MenuView');
+
+  // var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+  //   if (error) {
+  //     // an error occurred while attempting login
+  //     console.log(error);
+  //   } else if (user) {
+  //     // user authenticated with Firebase
+  //     console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
+  //   } else {
+  //     console.log("user not logged in")
+  //   }
+  // });
+
+  var userInfoFirebase = null;
+  var userInfo = {};
 
   // var GymListView = require('examples/views/Scrollview/GymListView');
   // var GymListSliderView = require('examples/views/Scrollview/GymListSliderView');
@@ -161,7 +177,11 @@ define(function(require, exports, module) {
         }
     }).bind(this));
 
-  }
+  };
+
+  AppView.setFirebase = function(firebase) {
+        userInfoFirebase = firebase;
+  };
 
   AppView.prototype.toggleMenu = function() {
     if(this.menuToggle) {

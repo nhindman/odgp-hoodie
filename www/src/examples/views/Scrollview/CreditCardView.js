@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     var Surface = require("famous/core/Surface");
     var RenderNode = require("famous/core/RenderNode");
     var View = require('famous/core/View');
-    var Timer = require('famous/Utilities/Timer');
+    var Timer = require('famous/utilities/Timer');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
@@ -130,7 +130,7 @@ define(function(require, exports, module) {
             this.paymentSuccess();
             // debugger;
             Timer.setTimeout(function(){
-                // debugger;
+                console.log("TIMER GOES")
                 this._eventOutput.emit('pass created');
                 this.moveDown();
             }.bind(this),4000);

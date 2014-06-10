@@ -108,8 +108,8 @@ define(function(require, exports, module) {
         this.layout.header.add(this.headerMod).add(this.headerBackground);
         
         //click on closeIcon closes the longinprompt page
-        this.closeIcon.on('click', function(){
-            console.log("closing time", this.layout)
+        this.closeIcon.on('click', function(e){
+            if(e.detail != null) return false;
             this._eventOutput.emit('closeLogin')
         }.bind(this));    
 

@@ -1,3 +1,4 @@
+var chatRef = new Firebase('https://burning-fire-4148.firebaseio.com');
 define(function(require, exports, module) {
     var Surface = require("famous/core/Surface");
     var RenderNode = require("famous/core/RenderNode");
@@ -9,7 +10,9 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
-    
+    var chatRef = new Firebase('https://burning-fire-4148.firebaseio.com');
+    var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {});
+
     function RegisterView(options, data) {
         View.apply(this, arguments);
 
@@ -117,7 +120,8 @@ define(function(require, exports, module) {
         this.layout.header.add(this.headerMod).add(this.headerBackground);
         
         //click on closeIcon closes the register page
-        this.closeIcon.on('click', function(){
+        this.closeIcon.on('click', function(e){
+            if(e.detail != null) return false;
             this._eventOutput.emit('RegisterClose')
         }.bind(this));    
 
@@ -266,36 +270,33 @@ define(function(require, exports, module) {
             transform: Transform.translate(0, 0, 110001)
         });
 
-        this.buttonSurface.on('click', function(){
+        this.buttonSurface.on('click', function(e){
+            if(e.detail != null) return false;
+            console.log("BUTTON SURFACE CLICK")
             this._eventOutput.emit('validated user from register');
-            // hoodie.account.signOut(); 
-            var username = $('.email-input').val();
+
+            var email = $('.email-input').val();
             var password = $('.password-input').val();
-            hoodie.account.signUp(username,password);
-            var type = $('.email-input').val();
-            var attributes = {pw: ''+$('.password-input').val()+''};
-            hoodie.store.add(type, attributes)
-              .done(function (newObject) {
-                console.log("NEEWWWWW#######",newObject);
-              });
+            console.log(email)
+            console.log(password)
+            console.log(chatRef)
 
-            // console.log("hoodie.account.username#######",hoodie.account.username)
-            // hoodie.store.findAll(type)
-            //   .done(function (tasks) {
-            //     console.log("TASKS#######",tasks)
-            //   });
-            // hoodie.account.on('signup', function (user) {
-            //     console.log("******",user)
-            // });
+            auth.createUser(email, password, function(error, user) {  
+              console.log("logging new registered user");
+              doLogin(email, password);  
+            });
 
-            // console.log("Hers signup:", signup)
-            // hoodie.account.on('signup', function(user){
-            //     console.log("HERE's USEER",user);
-            // });
-            // signup(email, pass).done(function(email, pass){
-            //     console.log("#####HERE's email",email);
-            //     console.log("HERE's email",pass);
-            // });
+            function doLogin(email, password){
+                console.log("DO LOGIN")
+                auth.login('password', {
+                    email: email, 
+                    password: password    
+                });
+            };
+
+            console.log("AUUUUUTH", auth.email)
+            console.log("AUUUUUTH", auth.login.email
+
         }.bind(this));
 
         //TERMS AND CONDITIONS
@@ -333,18 +334,18 @@ define(function(require, exports, module) {
         this.layout.content.add(this.bodyBackgroundMod).add(this.bodyBackground);
         
         //email validation is BROKEN NEEDS FIX HERE
-        setTimeout(function (){
-        console.log("timeout fires");
-        $('.email-input').keypress(function (e){
-            console.log("keypress fires!")
-            var email = this.value;
-          if(/^[a-zA-Z_][a-zA-Z0-9._\-+]*@([a-zA-Z0-9_\-]+.)+[a-zA-Z]+$/.test(email)){
-            console.log('email is valid');
-          }else{
-            console.log('email is not valid');
-          }
-        });
-        }, 0);
+        // setTimeout(function (){
+        // console.log("timeout fires");
+        // $('.email-input').keypress(function (e){
+        //     console.log("keypress fires!")
+        //     var email = this.value;
+        //   if(/^[a-zA-Z_][a-zA-Z0-9._\-+]*@([a-zA-Z0-9_\-]+.)+[a-zA-Z]+$/.test(email)){
+        //     console.log('email is valid');
+        //   }else{
+        //     console.log('email is not valid');
+        //   }
+        // });
+        // }, 0);
 
 
     };

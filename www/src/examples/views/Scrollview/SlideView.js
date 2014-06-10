@@ -360,18 +360,32 @@ define(function(require, exports, module) {
 
     //this receives clicks from overfooter and creates confirmpurchase view
      this._eventOutput.on('buy-now-clicked', function(data){
+        //if a confirm purchase view exists then check if user is logged in 
         if (this.confirmPurchase) {
-          if (!this.loginPrompt){
-            this.loginPrompt = new LoginPrompt({
-              size: [undefined, undefined]
-            });
-            this.loginPrompt.pipe(this._eventOutput);
-            this.loginPromptMod = new Modifier({
-              transform:Transform.translate(0,0,100)
-            });
-            this.add(this.loginPromptMod).add(this.loginPrompt);
-          }
-          this._eventOutput.emit('userLogin');
+            var that = this;
+            // var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+              // if (error) {
+                // an error occurred while attempting login
+                // console.log(error);
+              // } else if (user) {
+                // user authenticated with Firebase
+                // console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
+              // } else {
+                //if user not logged in then fire login prompt
+                console.log("user not logged in");
+                this.loginPrompt = new LoginPrompt({
+                  size: [undefined, undefined]
+                });
+                this.loginPrompt.pipe(this._eventOutput);
+                this.loginPromptMod = new Modifier({
+                  transform:Transform.translate(0,0,100)
+                });
+                that.add(this.loginPromptMod).add(this.loginPrompt);
+                that._eventOutput.emit('userLogin');
+              // }
+
+            // });  
+      
         } else {
           // console.log("buy-now-clicked")
           this.confirmPurchaseView = new ConfirmPurchase({
@@ -395,8 +409,9 @@ define(function(require, exports, module) {
        this._eventInput.emit('confirmPurchaseBackground clicked')
      }.bind(this));
 
+     //reveals mypass from click on 'OK' on creditcardview
      this._eventOutput.on('pass created', function(){
-      console.log("pass created")
+      console.log("pass created#####")
       this.createPass();
       this.passMoveIn();
      }.bind(this));

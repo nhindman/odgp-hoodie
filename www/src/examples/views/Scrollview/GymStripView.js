@@ -86,7 +86,8 @@ define(function(require, exports, module) {
     }
 
     function _setListeners() {
-        this.backgroundSurface.on('click', function() {
+        this.backgroundSurface.on('click', function(e) {
+          if(e.detail != null) return false;
           console.log("gym background surface clicked");
           this._eventOutput.emit('menuToggle');
           this._eventOutput.emit('pass closed');
