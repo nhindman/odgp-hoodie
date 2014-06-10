@@ -25,6 +25,7 @@ define(function(require, exports, module) {
     var ConfirmPurchase = require('examples/views/Scrollview/ConfirmPurchaseView');
     var LoginPrompt = require('examples/views/Scrollview/LoginPrompt');
     var MyPass = require('examples/views/Scrollview/MyPass');
+    var FirebaseRef = require('examples/views/Scrollview/FirebaseRef');
 //    var Triangle = require('examples/views/Scrollview/Triangle');
 
   function SlideView(options, data) {
@@ -361,16 +362,13 @@ define(function(require, exports, module) {
     //this receives clicks from overfooter and creates confirmpurchase view
      this._eventOutput.on('buy-now-clicked', function(data){
         //if a confirm purchase view exists then check if user is logged in 
+
         if (this.confirmPurchase) {
-            var that = this;
-            // var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
-              // if (error) {
-                // an error occurred while attempting login
-                // console.log(error);
-              // } else if (user) {
-                // user authenticated with Firebase
-                // console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
-              // } else {
+            if(FirebaseRef.user){
+              this._eventOutput.emit('pass created');
+              return;
+            }
+
                 //if user not logged in then fire login prompt
                 console.log("user not logged in");
                 this.loginPrompt = new LoginPrompt({
@@ -380,8 +378,8 @@ define(function(require, exports, module) {
                 this.loginPromptMod = new Modifier({
                   transform:Transform.translate(0,0,100)
                 });
-                that.add(this.loginPromptMod).add(this.loginPrompt);
-                that._eventOutput.emit('userLogin');
+                this.add(this.loginPromptMod).add(this.loginPrompt);
+                this._eventOutput.emit('userLogin');
               // }
 
             // });  

@@ -1,4 +1,18 @@
-var chatRef = new Firebase('https://burning-fire-4148.firebaseio.com');
+// var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
+// var chatRef = new Firebase(BASE_URL);
+// var auth = window.auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+//    if (error) {
+//         // an error occurred while attempting login
+//         console.log(error);
+//       } else if (user) {
+//         // user authenticated with Firebase
+//         console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
+//       } else {
+//         console.log('user logged out');
+//         // user is logged out
+//       }
+// });
+
 define(function(require, exports, module) {
     var Surface = require("famous/core/Surface");
     var RenderNode = require("famous/core/RenderNode");
@@ -10,11 +24,7 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
-    var chatRef = new Firebase('https://burning-fire-4148.firebaseio.com');
-    var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
-       console.log(user);
-       
-    });
+    var FirebaseRef = require('examples/views/Scrollview/FirebaseRef');
 
     function RegisterView(options, data) {
         View.apply(this, arguments);
@@ -284,21 +294,31 @@ define(function(require, exports, module) {
             console.log(password);
             console.log(chatRef);
 
-            auth.createUser(email, password, function(error, user) {  
+            FirebaseRef.auth.createUser(email, password, function(error, user) {  
               console.log("logging new registered user");
-              doLogin(email, password);  
+              if(error){
+                console.log('error creating user', error);
+              } else if (user){
+                var users = chatRef.child('users');
+                users.set({
+                    email: email,
+                    createdAt: new Date().toString()
+                });
+                doLogin(email, password);
+              }
+                
             });
 
             function doLogin(email, password){
                 console.log("DO LOGIN")
-                auth.login('password', {
+                FirebaseRef.auth.login('password', {
                     email: email, 
                     password: password    
                 });
             };
 
-            console.log("AUUUUUTH", auth.email);
-            console.log("AUUUUUTH", auth.login.email);
+            // console.log("AUUUUUTH", auth.email);
+            // console.log("AUUUUUTH", auth.login.email);
 
         }.bind(this));
 

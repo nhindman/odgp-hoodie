@@ -9,6 +9,13 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
+    var FirebaseRef = require('examples/views/Scrollview/FirebaseRef');
+
+    // var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+    //    console.log(user);
+
+    // });
+
     
     function WelcomeBackView(options, data) {
         View.apply(this, arguments);
@@ -268,6 +275,15 @@ define(function(require, exports, module) {
 
         this.buttonSurface.on('click', function(){
             console.log("user clicks register button");
+            var email = $('.email-input').val();
+            var password = $('.password-input').val();
+
+            FirebaseRef.auth.login('password', {
+                email: email, 
+                password: password    
+            });
+            console.log("##+#+#+",FirebaseRef.auth);
+
             this._eventOutput.emit('validated user from welcome back');    
         }.bind(this));
 
