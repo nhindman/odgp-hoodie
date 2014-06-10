@@ -446,8 +446,6 @@ define(function(require, exports, module) {
         direction:1 // 1 means Y direction
     });
 
-      console.log('bon size', window.innerHeight - this.options.headerSize - this.options.footerSize - (thirdWindowHeight+2*gymDetailItemHeight))
-
     this.detailScrollviewPos = new Transitionable(thirdWindowHeight+2*gymDetailItemHeight);
 
     //Use this modifier to positioning the scollview
