@@ -338,6 +338,8 @@ define(function(require, exports, module) {
           }
         });
         }, 0);
+        // .setContent('<img width="20" src="src/img/check-mark.png"/>')
+
 
     };
 
