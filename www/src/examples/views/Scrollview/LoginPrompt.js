@@ -296,7 +296,7 @@ define(function(require, exports, module) {
 
         this._eventOutput.on('validated user from welcome back',function(){
             //slide in mypass
-            console.log("REGISTERED USER IN THE HOUSE!");
+            console.log("REGISTERED USER, FIRE MYPASS");
             // if (!this.creditCardView){
             // this.createCreditCardView();
             // }

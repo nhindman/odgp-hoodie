@@ -283,8 +283,8 @@ define(function(require, exports, module) {
                 email: email, 
                 password: password    
             });
-            
-        }.bind(this), emitValid());
+            emitValid();
+        }.bind(this));
         
         function emitValid() {
             console.log("emitValid fired");
