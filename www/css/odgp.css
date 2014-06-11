@@ -61,11 +61,15 @@
 }
 
 .email {
-  padding-left: 2px;
+  padding-left: 19px;
 }
 
 .already-mem{
   padding-right: 9px;
+}
+
+.bold-text {
+  padding-left: 2px;
 }
 
 .email-input {

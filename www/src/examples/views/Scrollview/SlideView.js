@@ -1,3 +1,6 @@
+var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
+var chatRef = new Firebase(BASE_URL);
+
 define(function(require, exports, module) {
     var Surface = require("famous/core/Surface");
     var CanvasSurface = require("famous/surfaces/CanvasSurface");
@@ -174,7 +177,7 @@ define(function(require, exports, module) {
 
   //###################------BODY-----#####################
   function _createBody() {
-    console.log("data inside SlideView",$(this.options.data.gymName.getContent()).text().split(/[ ]+/).join('+'));
+    console.log("data inside SlideView",$(this.options.data.gymName.getContent()).text().split(/[ ]+/).join(' '));
     this.bodySurface = new View({
       classes: ["content-surface"],
       size: [undefined, windowHeight],
@@ -618,8 +621,6 @@ define(function(require, exports, module) {
 
   };
 
-
-
   SlideView.prototype.createPass = function(data){
     if (this.passView) return;
     this.passView = new MyPass({
@@ -628,7 +629,17 @@ define(function(require, exports, module) {
     this.passViewMod = new StateModifier({
       transform: Transform.translate(0,-window.innerHeight,500)
     });
-
+    var passes = chatRef.child('passes');
+    passes.set({
+      userID: FirebaseRef.user.id, 
+      gymName: $(this.options.data.gymName.getContent()).text().split(/[ ]+/).join(' '), 
+      price: $(this.options.data.price.getContent()).text().split(/[ ]+/).join(' '),
+      numDays: window.gymDays
+    })
+    // console.log("PASS DATA FROM SLIDEVIEW",this.options.data);
+    // console.log("HERE'S THE USER IN SLIDEVIEW",FirebaseRef.user);
+    // console.log("HERE'S THE USERID IN SLIDEVIEW",FirebaseRef.user.id)
+    
     this.add(this.passViewMod).add(this.passView);
     this.passView.pipe(this._eventOutput);
   };

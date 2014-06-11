@@ -230,7 +230,7 @@ define(function(require, exports, module) {
 
         this.register = new Surface({
             size: [true, true],
-            content: '<span class="register_using">Register Using</span>'+'<span class="email"> Email</span>', 
+            content: '<span class="register_using">Register Using</span>'+'<span class="bold-text"> Email</span>', 
             properties: {
                 fontSize: "81%", 
                 textAlign: "center"
@@ -245,7 +245,7 @@ define(function(require, exports, module) {
         this.alreadyMem = new Surface({
             classes: ["already-mem"],
             size: [true, true], 
-            content: '<span class="register_using">Already A</span>'+'<span class="email"> Member</span>',
+            content: '<span class="register_using">Already A</span>'+'<span class="bold-text"> Member</span>',
             properties: {
                 fontSize: "81%", 
                 textAlign: "center"
