@@ -124,11 +124,10 @@ define(function(require, exports, module) {
         this.headerBackground.add(this.creditCardMod).add(this.creditCard);
         this.layout.header.add(this.headerMod).add(this.headerBackground);
         
-        //click on closeIcon closes the credit card page
+        //click on OK creates new pass and redirects to MyPass
         this.OK.on('click', function(){
             console.log("OK clicked");
             this.paymentSuccess();
-            // debugger;
             Timer.setTimeout(function(){
                 console.log("TIMER GOES")
                 this._eventOutput.emit('pass created');
@@ -554,25 +553,10 @@ define(function(require, exports, module) {
 
     this.layout.content.add(this.paymentSuccessMod2).add(this.paymentSuccessMod).add(this.paymentSuccessContainer);
 
-    // this.paymentSuccessMsg = new Surface({
-    //     classes: ["payment-success-mg"],
-        
-    //     properties: {
-    //         color: "white", 
-    //         opacity: 1
-    //     }
-    // });
-
-    // this.paymentSuccessMsgMod = new Modifier({
-    //     origin: [0.5,0.5], 
-    //     transform: Transform.scale(0,0,10012100000000000000000000000),
-    // })
-
-    // this.paymentSuccessContainer.add(this.paymentSuccessMsgMod).add(this.paymentSuccessMsg);
     Timer.setTimeout(function(){
         console.log("set timeout fired######");
         this.paymentSuccessMod.setTransform(Transform.scale(2/scale,2/scale,2/scale),{duration:200})
-    }.bind(this),1000)
+    }.bind(this),500)
 
    };
 

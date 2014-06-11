@@ -1,17 +1,3 @@
-// var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
-// var chatRef = new Firebase(BASE_URL);
-// var auth = window.auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
-//    if (error) {
-//         // an error occurred while attempting login
-//         console.log(error);
-//       } else if (user) {
-//         // user authenticated with Firebase
-//         console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
-//       } else {
-//         console.log('user logged out');
-//         // user is logged out
-//       }
-// });
 var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
 var chatRef = new Firebase(BASE_URL);
 
@@ -293,7 +279,6 @@ define(function(require, exports, module) {
         //click on sign up button
         this.buttonSurface.on('click', function(e){
             if(e.detail != null) return false;
-            console.log("BUTTON SURFACE CLICK")
             this._eventOutput.emit('validated user from register');
 
             var email = $('.email-input').val();
@@ -329,7 +314,7 @@ define(function(require, exports, module) {
         this.TCMessage = new Surface({
             classes: ["TC-message"], 
             size: [true, true], 
-            content: '<div class="T-and-C"><span class="register_using">Find our</span> <span class="email">T&Cs</span> <span class="register_using">and</span> <span class="email">Privacy Policy</span> <span class="register_using">here</span></div>',
+            content: '<div class="T-and-C"><span class="register_using">Find our</span> <span class="">T&Cs</span> <span class="register_using">and</span> <span class="">Privacy Policy</span> <span class="register_using">here</span></div>',
             properties: {
                 backgroundColor: "black", 
                 color: "white", 
