@@ -283,12 +283,13 @@ define(function(require, exports, module) {
                 email: email, 
                 password: password    
             });
+            
+            var self = this;
             FirebaseRef.ready = function(success){
-                var that = this;
                 if(success){
                     //login success
                     console.log("user exists");
-                    that._eventOutput.emit('validated user from welcome back');
+                    self._eventOutput.emit('validated user from welcome back');
                 }else{
                     //login failed
                     console.log("user not valid")
