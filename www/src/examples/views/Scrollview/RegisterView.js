@@ -367,7 +367,7 @@ define(function(require, exports, module) {
           }
         });
         }, 0);
-// this.checkbox.setContent('<img width="20" src="src/img/check-mark.png"/>')
+// .setContent('<img width="20" src="src/img/check-mark.png"/>')
     };
 
     //############## -- END OF BODY -- #######################
