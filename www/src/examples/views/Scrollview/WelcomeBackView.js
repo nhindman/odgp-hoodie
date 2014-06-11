@@ -283,10 +283,21 @@ define(function(require, exports, module) {
                 email: email, 
                 password: password    
             });
-            emitValid();
+            
+            FirebaseRef.ready = function(success){
+                if(success){
+                    //login success
+                    console.log("user exists");
+                    this._eventOutput.emit('validated user from welcome back');
+                }else{
+                    //login failed
+                    console.log("user not valid")
+                }
+            }
+            
         }.bind(this));
         
-        function emitValid() {
+        /*function emitValid() {
             console.log("emitValid fired");
             if (FirebaseRef.user){
                 console.log("user exists");
@@ -294,7 +305,7 @@ define(function(require, exports, module) {
             } else {
                console.log("user not valid")
             }
-        }
+        }*/
 
         //TERMS AND CONDITIONS
         this.TCMessage = new Surface({
