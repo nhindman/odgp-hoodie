@@ -364,25 +364,24 @@ define(function(require, exports, module) {
         //if a confirm purchase view exists then check if user is logged in 
 
         if (this.confirmPurchase) {
+            //if user is logged in create mypass when confirm purchase is clicked
             if(FirebaseRef.user){
-              this._eventOutput.emit('pass created');
-              return;
+              console.log("USER PURCHASES PASSES");
+              this.createPass();
+              this.passMoveIn();
+              // return;
             }
-
-                //if user not logged in then fire login prompt
-                console.log("user not logged in");
-                this.loginPrompt = new LoginPrompt({
-                  size: [undefined, undefined]
-                });
-                this.loginPrompt.pipe(this._eventOutput);
-                this.loginPromptMod = new Modifier({
-                  transform:Transform.translate(0,0,100)
-                });
-                this.add(this.loginPromptMod).add(this.loginPrompt);
-                this._eventOutput.emit('userLogin');
-              // }
-
-            // });  
+            //if user not logged in then fire login prompt
+            console.log("user not logged in");
+            this.loginPrompt = new LoginPrompt({
+              size: [undefined, undefined]
+            });
+            this.loginPrompt.pipe(this._eventOutput);
+            this.loginPromptMod = new Modifier({
+              transform:Transform.translate(0,0,100)
+            });
+            this.add(this.loginPromptMod).add(this.loginPrompt);
+            this._eventOutput.emit('userLogin');  
       
         } else {
           // console.log("buy-now-clicked")
