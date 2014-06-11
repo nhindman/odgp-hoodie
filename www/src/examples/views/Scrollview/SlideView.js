@@ -636,17 +636,21 @@ define(function(require, exports, module) {
     this.passViewMod = new StateModifier({
       transform: Transform.translate(0,-window.innerHeight,500)
     });
-    var passes = chatRef.child('passes');
-    passes.set({
+    var passes = chatRef.child('passes').child(FirebaseRef.user.id);
+    passes.push({
       userID: FirebaseRef.user.id, 
       gymName: $(this.options.data.gymName.getContent()).text().split(/[ ]+/).join(' '), 
       price: $(this.options.data.price.getContent()).text().split(/[ ]+/).join(' '),
       numDays: window.gymDays
-    })
+    });
     // console.log("PASS DATA FROM SLIDEVIEW",this.options.data);
     // console.log("HERE'S THE USER IN SLIDEVIEW",FirebaseRef.user);
     // console.log("HERE'S THE USERID IN SLIDEVIEW",FirebaseRef.user.id)
     
+    // this line will return all the passes for a certain user
+    // FirebaseRef.chatRef.child('passes').child(FirebaseRef.user.id).limit(100).on('child_added', function(snapshot) {console.log(snapshot.val())})
+
+
     this.add(this.passViewMod).add(this.passView);
     this.passView.pipe(this._eventOutput);
   };

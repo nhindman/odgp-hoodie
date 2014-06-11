@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
   var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
-  var chatRef = new Firebase(BASE_URL);
+  module.exports.chatRef = new Firebase(BASE_URL);
   var error = null;
   module.exports.user = null;
   module.exports.ready = null;

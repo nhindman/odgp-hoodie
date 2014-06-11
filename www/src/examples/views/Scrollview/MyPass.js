@@ -9,6 +9,7 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
+    var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
     
     function MyPass(options, data) {
         View.apply(this, arguments);
