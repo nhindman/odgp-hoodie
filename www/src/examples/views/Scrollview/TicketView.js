@@ -118,9 +118,10 @@ define(function(require, exports, module) {
 
     function _setupTicketEvent(){
         this._eventInput.on('printTicket', function(data){
+            this.newTicketAvailable = true;
             (console.log("_setupTicketEvent DATA", data))
-            this.ticketExitMod.setOpacity(1);
             this.resetTicket(data);
+            this.ticketExitMod.setOpacity(1);
             var time = 400;
             this.ticketNodeMod.setTransform(Transform.translate(0,-this.options.ticketSize[1]*3/4,0),{duration:time},function(){
                 this.ticketNodeMod.setTransform(Transform.translate(0,-this.options.ticketSize[1]*3/4,0),{duration:time},function(){
@@ -165,6 +166,7 @@ define(function(require, exports, module) {
         this.rootMod.halt();
         this.ticketMod.setOpacity(0.2);
         this.ticketNodeMod.setTransform(Transform.translate(0,-this.options.ticketSize[1],0));
+        if (!data) return;
         this.ticket.setContent(['<div class="gym-name-on-ticket">',data.gymName.content,'</div><div class="pass-text-ticket">PASS</div>'].join(''));
     };
 

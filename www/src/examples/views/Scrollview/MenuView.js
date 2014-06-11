@@ -109,6 +109,10 @@ define(function(require, exports, module) {
           this._eventOutput.emit('menuToggle');
           this._eventOutput.emit('pass closed');
         }.bind(this));
+
+        this._eventOutput.on('resetTicket', function() {
+            this.ticketView.resetTicket()
+        }.bind(this));
     }
 
     MenuView.prototype.resetStrips = function() {
