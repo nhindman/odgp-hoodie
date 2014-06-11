@@ -369,7 +369,7 @@ define(function(require, exports, module) {
         if (this.confirmPurchase) {
             //if user is logged in create mypass when confirm purchase is clicked
             if(FirebaseRef.user){
-              console.log("USER PURCHASES PASSES");
+              console.log("NEWLY REGISTERED USER PURCHASES PASSES");
               this.createPass();
               this.passMoveIn();
               // return;
@@ -401,6 +401,13 @@ define(function(require, exports, module) {
           this.slideDown();
         }
      }.bind(this));
+
+    //receives registered user click on sign-in button from WelcomeBackView, through its parent, LoginPrompt; pass should now fire
+    this._eventOutput.on('welcome back registered user, fire pass', function(){
+      console.log("$$$$$$registered user sign-in RECEIVED IN SLIDEVIEW")
+      this.createPass();
+      this.passMoveIn();
+    }.bind(this));
 
      //receives click from confirmpurchase background and sends to overviewfooter
      this._eventOutput.on('confirmPurchaseBackground clicked', function(){

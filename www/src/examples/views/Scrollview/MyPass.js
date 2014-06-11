@@ -146,7 +146,7 @@ define(function(require, exports, module) {
         });
 
         this.bodyBackgroundMod = new Modifier({
-            transform: Transform.translate(0,0,60)
+            transform: Transform.translate(0,0,100000002)
         });
 
         this.ticketBackground = new Surface({
