@@ -25,7 +25,7 @@ define(function(require, exports, module) {
     var ConfirmPurchase = require('examples/views/Scrollview/ConfirmPurchaseView');
     var LoginPrompt = require('examples/views/Scrollview/LoginPrompt');
     var MyPass = require('examples/views/Scrollview/MyPass');
-    var FirebaseRef = require('examples/views/Scrollview/FirebaseRef');
+    var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
 //    var Triangle = require('examples/views/Scrollview/Triangle');
 
   function SlideView(options, data) {

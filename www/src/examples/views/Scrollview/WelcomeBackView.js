@@ -8,6 +8,7 @@ define(function(require, exports, module) {
     var Easing = require('famous/transitions/Easing');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
+    var InputSurface = require('famous/surfaces/InputSurface');
 
     var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
 
@@ -173,18 +174,18 @@ define(function(require, exports, module) {
             origin: [0.5, 0.3]
         })
         var emailandpwwidth = window.innerWidth/1.2
-        this.email = new Surface({
-            classes: ["email"],
-            content: '<input class="email-input" placeholder="Email"></input>', 
-            size: [emailandpwwidth, rectangleHeight/2.8], 
+        
+        this.email = new InputSurface({
+            classes: ["email", "email-input"],
+            content: "",
+            size: [emailandpwwidth, rectangleHeight/2.8],
+            placeholder:"Email",
             properties: {
                 backgroundColor: "white", 
                 color: "black", 
                 textAlign: "left"
-            }   
+            }
         });
-
-
 
         this.emailMod = new Modifier({
             transform: Transform.translate(0,0,100000), 
@@ -192,6 +193,7 @@ define(function(require, exports, module) {
         })
 
         this.firstX = new Surface({
+            classes: ['email-validation-ind'],
             content: '<img width="33" src="src/img/red-x.png"/>', 
             properties: {
                 backgroundColor: 'white'
@@ -205,6 +207,7 @@ define(function(require, exports, module) {
         })
 
         this.secondX = new Surface({
+            classes: ['password-validation-ind'],
             content: '<img width="33" src="src/img/red-x.png"/>', 
             properties: {
                 backgroundColor: 'white'
@@ -217,16 +220,18 @@ define(function(require, exports, module) {
             origin:[0.99,1]
         })
 
-        this.password = new Surface({
-            classes: ["password"],
-            content: '<input class="password-input" placeholder="Password"></input>',
-            size: [emailandpwwidth, rectangleHeight/2.8], 
+        this.password = new InputSurface({
+            classes: ["password", "password-input"],
+            content: "",
+            size: [emailandpwwidth, rectangleHeight/2.8],
+            placeholder:"Password",
+            type:"password",
             properties: {
                 backgroundColor: "white", 
                 color: "black", 
                 textAlign: "left"
             }
-        })
+        });
 
         this.passwordMod = new Modifier({
             transform: Transform.translate(0,0,100000), 
@@ -325,21 +330,22 @@ define(function(require, exports, module) {
         this.bodyBackground.add(this.TCMessageMod).add(this.TCMessage);
         this.layout.content.add(this.bodyBackgroundMod).add(this.bodyBackground);
         
-        //email validation is BROKEN NEEDS FIX HERE
-        setTimeout(function (){
-        console.log("timeout fires");
-        $('.email-input').keydown(function (e){
-            console.log("keypress fires!")
-            var email = this.value;
-          if(/^[a-zA-Z_][a-zA-Z0-9._\-+]*@([a-zA-Z0-9_\-]+.)+[a-zA-Z]+$/.test(email)){
-            console.log('email is valid');
-          }else{
-            console.log('email is not valid');
-          }
+        //add input listeners 
+        this.email.on('keyup', function(e){
+            if(/^[a-zA-Z_][a-zA-Z0-9._\-+]*@([a-zA-Z0-9_\-]+.)+[a-zA-Z]+$/.test(this.getValue())){
+                $('.email-validation-ind img').attr('src', 'src/img/check-mark.png');
+            }else{
+                $('.email-validation-ind img').attr('src', 'src/img/red-x.png');
+            }
         });
-        }, 0);
-        // .setContent('<img width="20" src="src/img/check-mark.png"/>')
 
+        this.password.on('keyup', function(e){
+            if(this.getValue().length>5){
+                $('.password-validation-ind img').attr('src', 'src/img/check-mark.png');
+            }else{
+                $('.password-validation-ind img').attr('src', 'src/img/red-x.png');
+            }
+        });
 
     };
 
@@ -347,7 +353,7 @@ define(function(require, exports, module) {
 
 
     function _createListeners() {
-
+        
     }
 
    WelcomeBackView.prototype.moveUp = function(){
