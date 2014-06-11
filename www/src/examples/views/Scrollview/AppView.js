@@ -205,6 +205,7 @@ define(function(require, exports, module) {
           this.menuToggle = true;
       }.bind(this));
       this._eventOutput.emit('setMask');
+      if (this.menuView.ticketView.newTicketAvailable) this.menuView.ticketView._eventInput.emit('printTicket');
   };
 
   AppView.prototype.passDisappear = function(){

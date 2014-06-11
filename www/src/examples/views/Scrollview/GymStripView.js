@@ -25,7 +25,7 @@ define(function(require, exports, module) {
         iconSize: 32,
         iconUrl: 'src/img/friends.png',
         title: 'Famo.us',
-        fontSize: 26,
+        fontSize: 26
     };
 
     function _createBackground() {
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
           if(e.detail != null) return false;
           console.log("gym background surface clicked");
           this._eventOutput.emit('menuToggle');
-          this._eventOutput.emit('pass closed');
+          this._eventOutput.emit('resetTicket');
       }.bind(this));
     }
 

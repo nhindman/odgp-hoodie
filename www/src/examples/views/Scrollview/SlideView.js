@@ -621,7 +621,7 @@ define(function(require, exports, module) {
 
 
   SlideView.prototype.createPass = function(data){
-    if (this.passView) return 
+    if (this.passView) return;
     this.passView = new MyPass({
       data: this.options.data
     });
@@ -631,17 +631,17 @@ define(function(require, exports, module) {
 
     this.add(this.passViewMod).add(this.passView);
     this.passView.pipe(this._eventOutput);
-  }
+  };
 
   SlideView.prototype.passMoveIn = function(){
     this.passViewMod.setTransform(Transform.translate(0,0,500));
-  }
+  };
 
   SlideView.prototype.passFadeOut = function(transition){
     this.passViewMod.setOpacity(0,transition || {duration: 300},function(){
       this.passViewMod.setTransform(Transform.translate(0,0,0))
     }.bind(this));
-  }
+  };
 
   SlideView.prototype.slideUp = function(){
       console.log('up')
