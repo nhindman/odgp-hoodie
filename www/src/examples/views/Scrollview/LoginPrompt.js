@@ -295,13 +295,8 @@ define(function(require, exports, module) {
         }.bind(this));
 
         this._eventOutput.on('validated user from welcome back',function(){
-            //bring in mypass
-
-            if(FirebaseRef.user){
-                console.log("USER EXISTS! FIRE MY PASS");    
-            } else {
-                console.log("not a registered user");
-            }
+            //bring in mypass   
+            console.log("REGISTERED USER IN THE HOUSE!");
             // if (!this.creditCardView){
             // this.createCreditCardView();
             // }

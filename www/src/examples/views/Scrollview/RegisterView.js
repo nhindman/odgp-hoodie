@@ -302,6 +302,7 @@ define(function(require, exports, module) {
                 var users = chatRef.child('users');
                 users.set({
                     email: email,
+                    password: password,
                     createdAt: new Date().toString()
                 });
                 doLogin(email, password);

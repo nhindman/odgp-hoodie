@@ -278,10 +278,18 @@ define(function(require, exports, module) {
                 email: email, 
                 password: password    
             });
-            console.log("##+#+#+",FirebaseRef.auth);
-
-            this._eventOutput.emit('validated user from welcome back');    
-        }.bind(this));
+            
+        }.bind(this), emitValid());
+        
+        function emitValid() {
+            console.log("emitValid fired");
+            if (FirebaseRef.user){
+                console.log("user exists");
+               this._eventOutput.emit('validated user from welcome back');
+            } else {
+               console.log("user not valid")
+            }
+        }
 
         //TERMS AND CONDITIONS
         this.TCMessage = new Surface({
