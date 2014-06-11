@@ -9,12 +9,7 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
-    var FirebaseRef = require('examples/views/Scrollview/FirebaseRef');
-
-    // var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
-    //    console.log(user);
-
-    // });
+    var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
 
     
     function WelcomeBackView(options, data) {
@@ -251,7 +246,7 @@ define(function(require, exports, module) {
             origin: [0.5, 0.5]
         })
 
-        //#######-- sign up button --#######
+        //#######-- sign in button --#######
         this.buttonWidth = window.innerWidth - (window.innerWidth/6.5);
         this.buttonHeight = window.innerHeight/12;
 
@@ -273,6 +268,7 @@ define(function(require, exports, module) {
             transform: Transform.translate(0,0,100001)
         });
 
+        //click on sign-in button
         this.buttonSurface.on('click', function(){
             console.log("user clicks register button");
             var email = $('.email-input').val();
@@ -334,7 +330,6 @@ define(function(require, exports, module) {
           }
         });
         }, 0);
-
 
     };
 

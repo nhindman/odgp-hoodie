@@ -12,6 +12,8 @@
 //         // user is logged out
 //       }
 // });
+var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
+var chatRef = new Firebase(BASE_URL);
 
 define(function(require, exports, module) {
     var Surface = require("famous/core/Surface");
@@ -24,7 +26,7 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
-    var FirebaseRef = require('examples/views/Scrollview/FirebaseRef');
+    var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
 
     function RegisterView(options, data) {
         View.apply(this, arguments);
@@ -283,6 +285,7 @@ define(function(require, exports, module) {
             transform: Transform.translate(0, 0, 110001)
         });
 
+        //click on sign up button
         this.buttonSurface.on('click', function(e){
             if(e.detail != null) return false;
             console.log("BUTTON SURFACE CLICK")
@@ -290,9 +293,6 @@ define(function(require, exports, module) {
 
             var email = $('.email-input').val();
             var password = $('.password-input').val();
-            console.log(email);
-            console.log(password);
-            console.log(chatRef);
 
             FirebaseRef.auth.createUser(email, password, function(error, user) {  
               console.log("logging new registered user");
@@ -316,9 +316,6 @@ define(function(require, exports, module) {
                     password: password    
                 });
             };
-
-            // console.log("AUUUUUTH", auth.email);
-            // console.log("AUUUUUTH", auth.login.email);
 
         }.bind(this));
 
@@ -356,21 +353,21 @@ define(function(require, exports, module) {
         this.bodyBackground.add(this.TCMessageMod).add(this.TCMessage);
         this.layout.content.add(this.bodyBackgroundMod).add(this.bodyBackground);
         
-        //email validation is BROKEN NEEDS FIX HERE
-        // setTimeout(function (){
-        // console.log("timeout fires");
-        // $('.email-input').keypress(function (e){
-        //     console.log("keypress fires!")
-        //     var email = this.value;
-        //   if(/^[a-zA-Z_][a-zA-Z0-9._\-+]*@([a-zA-Z0-9_\-]+.)+[a-zA-Z]+$/.test(email)){
-        //     console.log('email is valid');
-        //   }else{
-        //     console.log('email is not valid');
-        //   }
-        // });
-        // }, 0);
+        // email validation is BROKEN NEEDS FIX HERE
+        setTimeout(function (){
+        console.log("timeout fires");
+        $('.email-input').keypress(function (e){
+            console.log("keypress fires!")
+            var email = this.value;
+          if(/^[a-zA-Z_][a-zA-Z0-9._\-+]*@([a-zA-Z0-9_\-]+.)+[a-zA-Z]+$/.test(email)){
+            console.log('email is valid');
+          }else{
+            console.log('email is not valid');
+          }
+        });
+        }, 0);
 
-
+// this.checkbox.setContent('<img width="20" src="src/img/check-mark.png"/>')
     };
 
     //############## -- END OF BODY -- #######################

@@ -13,6 +13,8 @@ define(function(require, exports, module) {
     var WelcomeBackView = require('examples/views/Scrollview/WelcomeBackView');
     var CreditCardView = require('examples/views/Scrollview/CreditCardView');
 
+    var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
+
     function LoginPrompt(options, data) {
         View.apply(this, arguments);
 
@@ -282,8 +284,6 @@ define(function(require, exports, module) {
             this._eventOutput.emit('closeLogin', {duration:0});
         }.bind(this));
 
-
-
         //listen: user closes credit card page    
         this._eventOutput.on('CreditClose',function(){
             this.creditCardViewFadeOut();
@@ -295,11 +295,18 @@ define(function(require, exports, module) {
         }.bind(this));
 
         this._eventOutput.on('validated user from welcome back',function(){
-            if (!this.creditCardView){
-            this.createCreditCardView();
+            //bring in mypass
+
+            if(FirebaseRef.user){
+                console.log("USER EXISTS! FIRE MY PASS");    
+            } else {
+                console.log("not a registered user");
             }
-            this.welcomeBackViewMoveLeft();
-            this.creditCardViewMoveIn();
+            // if (!this.creditCardView){
+            // this.createCreditCardView();
+            // }
+            // this.welcomeBackViewMoveLeft();
+            // this.creditCardViewMoveIn();
 
         }.bind(this));
 
