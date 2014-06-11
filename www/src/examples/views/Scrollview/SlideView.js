@@ -178,15 +178,15 @@ define(function(require, exports, module) {
   //###################------BODY-----#####################
   function _createBody() {
     console.log("data inside SlideView",$(this.options.data.gymName.getContent()).text().split(/[ ]+/).join(' '));
-    this.bodySurface = new View({
-      classes: ["content-surface"],
-      size: [undefined, windowHeight],
-      properties: {
-        backgroundColor: "red",
-        zIndex: 10
-      }, 
-      color: "white"
-    });
+    // this.bodySurface = new View({
+    //   classes: ["content-surface"],
+    //   size: [undefined, windowHeight],
+    //   properties: {
+    //     backgroundColor: "red",
+    //     zIndex: 10
+    //   }, 
+    //   color: "white"
+    // });
 
     //######### -- SCROLLVIEW carousel of gym photos --- ############
 

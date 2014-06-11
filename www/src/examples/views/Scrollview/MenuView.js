@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 
     var StripView       = require('examples/views/Scrollview/StripView');
     var GymStripView    = require('examples/views/Scrollview/GymStripView');
+    var PassesStripView = require('examples/views/Scrollview/PassesStripView');
     var FeaturedView    = require('examples/views/Scrollview/FeaturedView');
     var TicketView      = require('examples/views/Scrollview/TicketView');
     var StripData       = require('src/examples/data/StripData.js');
@@ -58,6 +59,24 @@ define(function(require, exports, module) {
 
         this.stripModifiers.push(gymStripViewMod);
         this.add(gymStripViewMod).add(this.gymStripView);
+
+        //passes strip view
+
+        this.passesStripView = new PassesStripView({
+            classes: ["passes-strip-view"],
+            iconUrl: 'src/img/passes.png',
+            title: 'passes'
+        });
+
+        //listens for event outputs from GymStripView ('menutoggle')
+        this._eventOutput.subscribe(this.passesStripView);
+
+        var passesStripViewMod = new StateModifier({
+            transform: Transform.translate(0, yOffset, -1)
+        });
+
+        this.stripModifiers.push(passesStripViewMod);
+        this.add(passesStripViewMod).add(this.passesStripView);
 
         yOffset += this.options.stripOffset;
 
