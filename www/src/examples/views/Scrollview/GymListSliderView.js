@@ -64,7 +64,7 @@ define(function(require, exports, module) {
 
       var backModifier = new StateModifier({
         // positions the background behind the circle surface
-        transform: Transform.behind
+//        transform: Transform.behind
       });
 
       sizeNode.add(backModifier).add(this.passSliderbackground);

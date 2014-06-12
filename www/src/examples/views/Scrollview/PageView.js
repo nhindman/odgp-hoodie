@@ -7,7 +7,8 @@ define(function(require, exports, module) {
   var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
   var ImageSurface = require('famous/surfaces/ImageSurface');
   var Lightbox = require('famous/views/Lightbox');
-    
+  var RenderController = require('famous/views/RenderController');
+
   var GymData = require('src/examples/data/GymData.js');
 
   var GymListView = require('examples/views/Scrollview/GymListView');
@@ -15,13 +16,16 @@ define(function(require, exports, module) {
   var GymListHeaderView = require('examples/views/Scrollview/GymListHeaderView');
   var DetailView = require('examples/views/Scrollview/DetailView')
 
+  var PassesView = require('examples/views/Scrollview/PassesView');
 
   function PageView() {
-
     View.apply(this, arguments);
 
     // Bon: Make a blackground to cover the strip view.
     _createBackGround.call(this);
+
+    // Bon: Create RenderController.
+    _createRenderControll.call(this);
 
     // Bon: create HeaderFooterLayout.
     _createLayout.call(this);
@@ -51,12 +55,17 @@ define(function(require, exports, module) {
   PageView.prototype = Object.create(View.prototype);
   PageView.prototype.constructor = PageView;
 
+  function _createRenderControll(){
+      this.renderController = new RenderController();
+      this.add(this.renderController);
+  }
+
   function _createLayout(){
-    this.layout = new HeaderFooterLayout({
+    this.gymListLayout = new HeaderFooterLayout({
       headerSize: 75,
       footerSize: 100
     });
-    this.add(this.layout);
+    this.renderController.show(this.gymListLayout);
   }
 
   //mask covers pageview when it's minimized
@@ -66,8 +75,8 @@ define(function(require, exports, module) {
       transform: Transform.translate(0,0,-999)
     });
     this.mask.pipe(this._eventOutput);
-    this.layout.content.add(this.maskMod).add(this.mask);
-    
+    this.gymListLayout.content.add(this.maskMod).add(this.mask);
+
     this.mask.on('click', function() {
        this._eventOutput.emit('menuToggle');
     }.bind(this));
@@ -80,14 +89,14 @@ define(function(require, exports, module) {
     data = GymData();
 
     this.gymListView = new GymListView({ data : data });
-    
+
     this.gymListView.pipe(this._eventOutput);
 
     this.gymListModifier = new Modifier({
       // size: [320,700]
     });
 
-    this.layout.content.add(this.gymListModifier).add(this.gymListView);
+    this.gymListLayout.content.add(this.gymListModifier).add(this.gymListView);
 
   }
 
@@ -99,10 +108,15 @@ define(function(require, exports, module) {
 
     this.gymListSliderViewModifier = new Modifier();
 
-    this.layout.footer.add(this.gymListSliderViewModifier).add(this.gymListSliderview);
+    this.gymListLayout.footer.add(this.gymListSliderViewModifier).add(this.gymListSliderview);
 
     this.gymListSliderview.passSliderbackground.pipe(this._eventOutput);
 
+  }
+
+  function _createPassesView(){
+      this.passesView = new PassesView();
+      this.passesView.pipe(this._eventOutput);
   }
 
   function _createBackGround() {
@@ -129,7 +143,7 @@ define(function(require, exports, module) {
 
 //    this.gymListHeaderView.pipe(this._eventOutput);
 
-    this.layout.header.add(this.gymListHeaderViewModifier).add(this.gymListHeaderView);
+    this.gymListLayout.header.add(this.gymListHeaderViewModifier).add(this.gymListHeaderView);
   }
 
   function _setListeners() {
@@ -153,6 +167,13 @@ define(function(require, exports, module) {
     }.bind(this));
     this._eventInput.on('removeMask',function(){
         this.maskMod.setTransform(Transform.translate(0,0,-999));
+    }.bind(this));
+    this._eventInput.on('showGymListView',function(){
+        this.renderController.show(this.gymListLayout);
+    }.bind(this));
+    this._eventInput.on('showPassesView',function(){
+        if (!this.passesView) _createPassesView.call(this);
+        this.renderController.show(this.passesView);
     }.bind(this));
 
 //    this.bodySurface.pipe(this._eventOutput);

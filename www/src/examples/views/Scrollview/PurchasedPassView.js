@@ -5,40 +5,34 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
 
-    var ContainerSurface = require('famous/surfaces/ContainerSurface')
+    var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
     function PurchasedPassView(options) {
 
         View.apply(this, arguments);
 
-        var i = index;
-
-        this.itemIndex = index;
-
         this.container = new ContainerSurface({
             size: [undefined, 100], 
             properties: {
-              backgroundColor: 'red', 
-              zIndex: 100000
+              backgroundColor: 'red'
             }
         });
-
         this.add(this.container);
 
         //base panel surface with gym name 
-        this.mainSurface = new Surface({ 
-           properties: {
+        this.mainSurface = new Surface({
+            size: [undefined, 100],
+            properties: {
                backgroundColor: "#40B376",
                zIndex: 1,
                borderBottom: "1px solid #3F9165"
            }
         });
-        this.mainSurfaceModifier = new Modifier({
-          size: [undefined, 100]
-        })
+        this.mainSurfaceModifier = new Modifier();
 
         this.gymName = new Surface({
-          content: '<div class="gym_name">' + this.options.gymName + '</div>',
+            size: [undefined, 100],
+            content: '<div class="gym_name">' + this.options.gymName + '</div>',
           properties: {
             marginLeft: "14.7%",
             lineHeight: "100px",
@@ -46,11 +40,9 @@ define(function(require, exports, module) {
             fontSize: "20px",
             zIndex: 50000
           }
-        })
+        });
 
-        this.gymNameModifier = new Modifier({
-          size: [undefined, 100]
-        })
+        this.gymNameModifier = new Modifier();
 
         //surface containing the price of each pass
         this.price = new Surface({ 
@@ -72,33 +64,32 @@ define(function(require, exports, module) {
         });
 
         this.container.add(this.mainSurfaceModifier).add(this.mainSurface);
-        this.container.add(this.gymNameModifier).add(this.gymName)
+        this.container.add(this.gymNameModifier).add(this.gymName);
         this.container.add(this.priceModifier).add(this.price);
         
-        // _setListeners.call(this);
+        _setListeners.call(this);
 
         this.isPiping = false;
         this.onPipeEventOutput();
-    };
+    }
 
     PurchasedPassView.prototype = Object.create(View.prototype);
     PurchasedPassView.prototype.constructor = PurchasedPassView;
 
     PurchasedPassView.DEFAULT_OPTIONS = {
      
-    }
+    };
 
     function _setListeners() {
-      // this.on('click', function() {
-      //   console.log(this.gymName.content)
-      //   this._eventOutput.emit('showDetails', {data: this.gymName.content});
-      // });
+      this.container.on('click', function() {
+         this._eventOutput.emit('showPurchasedPass', this.options);
+      }.bind(this));
 
 
       this._eventInput.on('pipeEventOutput',this.onPipeEventOutput.bind(this));
       this._eventInput.on('unPipeEventOutput',this.onUnPipeEventOutput.bind(this));
 
-    };
+    }
 
     PurchasedPassView.prototype.onPipeEventOutput = function(){
         if (this.isPiping == true) return;
