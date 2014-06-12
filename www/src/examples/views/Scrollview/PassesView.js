@@ -3,15 +3,11 @@ var chatRef = new Firebase(BASE_URL);
 
 define(function(require, exports, module) {
     var Surface = require("famous/core/Surface");
-    var CanvasSurface = require("famous/surfaces/CanvasSurface");
     var RenderNode = require("famous/core/RenderNode");
     var View = require('famous/core/View');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-    var Easing = require('famous/transitions/Easing');
-    var Lightbox = require('famous/views/Lightbox');
-    var ImageSurface = require("famous/surfaces/ImageSurface");
     var HeaderFooter = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
     var Scrollview = require("famous/views/Scrollview");
@@ -25,7 +21,6 @@ define(function(require, exports, module) {
     var Transitionable  = require('famous/transitions/Transitionable');
 
     var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
-
 
     function PassesView(options, data) {
       View.apply(this, arguments);
@@ -124,7 +119,7 @@ define(function(require, exports, module) {
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
         
-        var passScrollViewMod = new StateModifier({
+        this.passScrollViewMod = new StateModifier({
           size: [this.windowWidth,this.windowHeight]
         });
 
@@ -143,18 +138,23 @@ define(function(require, exports, module) {
         //push pass objects into an array 
         FirebaseRef.chatRef.child('passes').child(FirebaseRef.user.id).limit(100).on('child_added', function(snapshot) {this.array.push(snapshot.val())})
 
+        passView = null;
+
         //loop that calls each panel of passScrollView
-        for (var i = 0; i < this.array.length; i++) {
+        for (var i = 0, pass; i < this.array.length; i++) {
 
           var passView = new PurchasedPassView({ 
-            
+            gymName: pass.gymName[i], 
+            numDays: pass.numDays[i],
+            price: pass.price[i], 
+            userID: pass.userID[i]
           }, undefined, i);
 
           this._eventInput.pipe(passView);
 
           this._setItemSyncEvent(passView);
 
-          passView.pipe(this.gymScrollview); // scrolling
+          passView.pipe(this.passScrollView); // scrolling
 
           passView.pipe(this._eventOutput); // dragging
           
@@ -162,9 +162,11 @@ define(function(require, exports, module) {
 
           //click function to fire detail view
 
-          passView.on('click',this.detail.createDetails.bind(this.detail, passView));
+          passView.on('click',this.passPurchasedPassView.createDetails.bind(passView));
 
-      }
+        }
+
+        this.add(backModifier).add(this.passScrollViewMod).add(this.passScrollView);
 
 
       }

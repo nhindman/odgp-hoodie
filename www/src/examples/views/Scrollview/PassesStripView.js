@@ -1,10 +1,12 @@
+var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
+var chatRef = new Firebase(BASE_URL);
+
 define(function(require, exports, module) {
     var Surface         = require('famous/core/Surface');
     var StateModifier   = require('famous/modifiers/StateModifier');
     var Transform       = require('famous/core/Transform');
     var View            = require('famous/core/View');
     var ImageSurface    = require('famous/surfaces/ImageSurface');
-
 
     function PassesStripView() {
         View.apply(this, arguments);
