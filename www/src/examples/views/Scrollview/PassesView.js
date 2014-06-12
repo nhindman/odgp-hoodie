@@ -90,8 +90,6 @@ define(function(require, exports, module) {
           content: '<img width="20" src="src/img/menu-icon.png"/>'
         });
 
-        this.hamburgerSurface.pipe(this._eventOutput);
-
         //creates hamburger icon modifier
         this.hamburgerModifier = new Modifier({
           origin: [0.1, 0.5]
