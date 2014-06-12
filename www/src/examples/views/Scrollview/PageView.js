@@ -1,8 +1,13 @@
+var BASE_URL = 'https://burning-fire-4148.firebaseio.com';
+var chatRef = new Firebase(BASE_URL);
+
 define(function(require, exports, module) {
   var Surface = require('famous/core/Surface');
   var Modifier = require('famous/core/Modifier');
+  var StateModifier = require('famous/modifiers/StateModifier');
   var Transform = require('famous/core/Transform');
   var View = require('famous/core/View');
+  var RenderNode = require('famous/core/RenderNode');
   var FastClick = require('famous/inputs/FastClick');
   var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
   var ImageSurface = require('famous/surfaces/ImageSurface');
@@ -14,9 +19,13 @@ define(function(require, exports, module) {
   var GymListView = require('examples/views/Scrollview/GymListView');
   var GymListSliderView = require('examples/views/Scrollview/GymListSliderView');
   var GymListHeaderView = require('examples/views/Scrollview/GymListHeaderView');
-  var DetailView = require('examples/views/Scrollview/DetailView')
+  var DetailView = require('examples/views/Scrollview/DetailView');
 
   var PassesView = require('examples/views/Scrollview/PassesView');
+  var MyPurchasedPass = require('examples/views/Scrollview/MyPurchasedPass');
+
+  var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
+
 
   function PageView() {
     View.apply(this, arguments);
@@ -175,15 +184,24 @@ define(function(require, exports, module) {
         if (!this.passesView) _createPassesView.call(this);
         this.renderController.show(this.passesView);
     }.bind(this));
-
+    this._eventOutput.on('showMyPurchasedPass',this.showMyPurchasedPass.bind(this));
 //    this.bodySurface.pipe(this._eventOutput);
   }
 
-  //create view that gym overview slides get appended when gym list item is clicked 
-  function _createDetailView() {
-    this.detailView = new DetailView();
-    this.subscribe(this.detailView);
-  }
+    //create view that gym overview slides get appended when gym list item is clicked
+    function _createDetailView() {
+      this.detailView = new DetailView();
+      this.subscribe(this.detailView);
+    }
+
+    PageView.prototype.showMyPurchasedPass = function(data){
+        this.myPurchasedPass = new MyPurchasedPass({
+            data: data
+        });
+
+        this.myPurchasedPass.pipe(this._eventOutput);
+        this.renderController.show(this.myPurchasedPass);
+    };
 
   module.exports = PageView;
     

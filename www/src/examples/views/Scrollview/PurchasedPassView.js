@@ -82,7 +82,8 @@ define(function(require, exports, module) {
 
     function _setListeners() {
       this.container.on('click', function() {
-         this._eventOutput.emit('showPurchasedPass', this.options);
+          console.log(this.options)
+         this._eventOutput.emit('showMyPurchasedPass', this.options);
       }.bind(this));
 
 
