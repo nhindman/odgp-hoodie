@@ -18,7 +18,7 @@ define(function(require, exports, module) {
         this.container = new ContainerSurface({
             size: [undefined, 100], 
             properties: {
-              backgroundColor: 'red', 
+              backgroundColor: 'rgb(64, 179, 118)',
               zIndex: 100000
             }
         });
