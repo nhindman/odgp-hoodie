@@ -195,11 +195,16 @@ define(function(require, exports, module) {
     }
 
     PageView.prototype.showMyPurchasedPass = function(data){
-        this.myPurchasedPass = new MyPurchasedPass({
-            data: data
-        });
+        if (!this.myPurchasedPass){
+            this.myPurchasedPass = new MyPurchasedPass({
+                data: data
+            });
+            this.myPurchasedPass.pipe(this._eventOutput);
 
-        this.myPurchasedPass.pipe(this._eventOutput);
+        } else {
+            this.myPurchasedPass.setContents(data)
+        }
+
         this.renderController.show(this.myPurchasedPass);
     };
 

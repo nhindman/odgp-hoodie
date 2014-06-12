@@ -9,20 +9,21 @@ define(function(require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
-    function MyPass(options, data) {
+    function MyPurchasedPass(options, data) {
         View.apply(this, arguments);
         _createLayout.call(this);
         _createHeader.call(this);
         _createBody.call(this);
         _createListeners.call(this);
+        this.setContents(this.options.data);
     }
 
-    MyPass.prototype = Object.create(View.prototype);
-    MyPass.prototype.constructor = MyPass;
+    MyPurchasedPass.prototype = Object.create(View.prototype);
+    MyPurchasedPass.prototype.constructor = MyPurchasedPass;
 
     var windowWidth = window.innerWidth;
 
-    MyPass.DEFAULT_OPTIONS = {
+    MyPurchasedPass.DEFAULT_OPTIONS = {
         size: [windowWidth, undefined],
         data: undefined, 
         headerSize: 55,
@@ -143,7 +144,6 @@ define(function(require, exports, module) {
         this.gymName = new Surface({
             classes: ["gym-name-pass-header"], 
             size: [true, true], 
-            content: ['<div class="gym-name-header-pass">'+ this.options.data.gymName +'</div>','<div class="num-days-header-pass">'+window.gymDays+' Pass</div>'].join(''),
             properties: {
                 color: "black",
                 fontSize: "22.4px"
@@ -166,21 +166,10 @@ define(function(require, exports, module) {
         });
         
         //make special code and # of pass same html string
-        
-        this.numPasses = this.options.data.numPasses;
-        this.passOrPasses = null;
-
-        if (this.numPasses > 1){
-            console.log('total passes is greater than 1!!!!!!!!!!');
-            this.passOrPasses === 'Passes'
-        } else {
-            this.passOrPasses === 'Pass'
-        }
 
         this.specialCode = new Surface({
             classes: ["specialCode"], 
             size: [246.5, true], 
-            content: '<div class="special-code-pass">Special Code:D7558 <span class="pass-amount-pass">'+this.numPasses+' Pass</span></div>',
             properties: {
                 color: "black", 
                 fontSize: "78%"
@@ -205,7 +194,6 @@ define(function(require, exports, module) {
         this.username = new Surface({
             classes: ["username-pass"], 
             size: [246.5, true], 
-            content: ['<div class="username-text-pass">NATE HINDMAN','<span class="total-price-pass">'+ this.options.data.price +'</span></div>'].join(''),
             properties: {
                 color: "black", 
                 fontSize: "97%"
@@ -244,7 +232,6 @@ define(function(require, exports, module) {
         this.locationSurface = new Surface({
             classes: ["location-surface"], 
             size: [286, this.locationHeight],
-            content: ['<div class="gym-name-pass">', this.options.data.gymName,'</div>'].join(''),
             properties: {
                 backgroundColor: "rgb(245, 250, 232)", 
                 color: "black",
@@ -347,7 +334,7 @@ define(function(require, exports, module) {
         this.bodyBackground.add(this.howGetIn2Mod).add(this.howGetIn2);
         this.layout.content.add(this.bodyBackgroundMod).add(this.bodyBackground);
 
-    };
+    }
 
     //############## -- END OF BODY -- #######################
 
@@ -356,5 +343,21 @@ define(function(require, exports, module) {
 
     }
 
-    module.exports = MyPass;
+    MyPurchasedPass.prototype.setContents = function(data){
+        this.passOrPasses = null;
+
+        if (data.numPasses > 1){
+            console.log('total passes is greater than 1!!!!!!!!!!');
+            this.passOrPasses = 'Passes';
+        } else {
+            this.passOrPasses = 'Pass';
+        }
+        this.gymName.setContent(['<div class="gym-name-header-pass">'+ data.gymName +'</div>','<div class="num-days-header-pass">'+ data.numDays +' Pass</div>'].join(''));
+        this.specialCode.setContent('<div class="special-code-pass">Special Code:D7558 <span class="pass-amount-pass">'+data.numPasses+ ' ' +this.passOrPasses+'</span></div>');
+        this.username.setContent(['<div class="username-text-pass">NATE HINDMAN','<span class="total-price-pass">'+ data.price +'</span></div>'].join(''));
+        this.locationSurface.setContent(['<div class="gym-name-pass">', data.gymName,'</div>'].join(''));
+    };
+
+
+    module.exports = MyPurchasedPass;
 });

@@ -106,7 +106,7 @@ define(function(require, exports, module) {
         });
 
         this.myPassesModifier = new Modifier({
-          origin: [0.43,0.45]
+          origin: [0.5,0.5]
         });
 
         this.layout.header.add(this.headerBackgroundSurfaceMod).add(this.headerBackgroundSurface);
@@ -154,11 +154,11 @@ define(function(require, exports, module) {
       }
 
     PassesView.prototype.addPassesItem = function(item){
-//        debugger
         var passView = new PurchasedPassView({
             gymName: item.gymName,
             numDays: item.numDays,
             price: item.price,
+            numPasses: item.numPasses,
             userID: item.userID
         });
 
