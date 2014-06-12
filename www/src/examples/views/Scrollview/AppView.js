@@ -113,6 +113,8 @@ define(function(require, exports, module) {
     this._eventInput.on('ticketToggle', function(){
         this._eventInput.emit('menuToggle');
         this._eventOutput.emit('ticketToggle');
+        this._eventInput.emit('showGymListView');
+
     }.bind(this));
     this._eventInput.on('pass closed', function(data, numPasses){
       console.log("pass closed received in appview");
