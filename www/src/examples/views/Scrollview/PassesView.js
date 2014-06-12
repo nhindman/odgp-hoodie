@@ -20,6 +20,8 @@ define(function(require, exports, module) {
     GenericSync.register({'mouse': MouseSync, 'touch': TouchSync});
     var Transitionable  = require('famous/transitions/Transitionable');
 
+    var PurchasedPassView = require('examples/views/Scrollview/PurchasedPassView');
+
     var FirebaseRef = require('examples/views/Scrollview/firebaseRef');
 
     function PassesView(options, data) {
@@ -28,6 +30,7 @@ define(function(require, exports, module) {
       _createHeader.call(this);
       _createBody.call(this);
       _setListeners.call(this);
+      _setupEvents.call(this);
 
     }
 
@@ -48,12 +51,12 @@ define(function(require, exports, module) {
       });
 
       this.layout = new HeaderFooter({
-        headerSize: this.options.headerSize,
-        footerSize: this.options.footerSize
+        headerSize: 75,
+        footerSize: 0
       });
 
       this.layoutModifier = new StateModifier({
-        transform: Transform.translate(0, window.innerHeight, 21)
+//        transform: Transform.translate(0, window.innerHeight, 21)
         // transform: Transform.translate(0, 0, 0.1)
       });
 
@@ -71,10 +74,10 @@ define(function(require, exports, module) {
           classes: ["overview-header-passes"],
           size:[undefined,75],
           properties: {
-            backgroundColor: "black", 
+            backgroundColor: "black",
             color: "white"
           }
-          
+
         });
 
         this.headerBackgroundSurfaceMod = new Modifier({
@@ -87,24 +90,26 @@ define(function(require, exports, module) {
           content: '<img width="20" src="src/img/menu-icon.png"/>'
         });
 
+        this.hamburgerSurface.pipe(this._eventOutput);
+
         //creates hamburger icon modifier
         this.hamburgerModifier = new Modifier({
-          origin: [0.5, 0.5]
+          origin: [0.1, 0.5]
         });
 
         //adds my passes text to header
-        this.myPassesSurface = new Surface({ 
+        this.myPassesSurface = new Surface({
           size: [true, true],
-          content: '<div class="city_name">My Passes</div>', 
+          content: '<div class="city_name">My Passes</div>',
           properties: {
-            color: "white", 
+            color: "white",
             zIndex: 1000000
           }
-        })
+        });
 
         this.myPassesModifier = new Modifier({
           origin: [0.43,0.45]
-        })
+        });
 
         this.layout.header.add(this.headerBackgroundSurfaceMod).add(this.headerBackgroundSurface);
         this.headerBackgroundSurface.add(this.hamburgerModifier).add(this.hamburgerSurface);
@@ -115,65 +120,58 @@ define(function(require, exports, module) {
 
       function _createBody() {
         this.passScrollView = new Scrollview();
-        
+
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
-        
+
         this.passScrollViewMod = new StateModifier({
-          size: [this.windowWidth,this.windowHeight]
+          transform: Transform.translate(0,0,1)
         });
 
         var backModifier = new StateModifier({
           transform: Transform.behind
         });
 
-        var surfaces = [];
+        this.surfaces = [];
 
-        this.passScrollView.sequenceFrom(surfaces);
+        this.passScrollView.sequenceFrom(this.surfaces);
 
-        this.userID = FirebaseRef.user.id
-        
-        this.array = []
-
-        //push pass objects into an array 
-        FirebaseRef.chatRef.child('passes').child(FirebaseRef.user.id).limit(100).on('child_added', function(snapshot) {this.array.push(snapshot.val())})
-
-        passView = null;
+        //push pass objects into an array
+        FirebaseRef.chatRef.child('passes').child(FirebaseRef.user.id).limit(100).on('child_added', function(snapshot) {this.addPassesItem(snapshot.val())}.bind(this));
 
         //loop that calls each panel of passScrollView
-        for (var i = 0, pass; i < this.array.length; i++) {
 
-          var passView = new PurchasedPassView({ 
-            gymName: pass.gymName[i], 
-            numDays: pass.numDays[i],
-            price: pass.price[i], 
-            userID: pass.userID[i]
-          }, undefined, i);
-
-          this._eventInput.pipe(passView);
-
-          this._setItemSyncEvent(passView);
-
-          passView.pipe(this.passScrollView); // scrolling
-
-          passView.pipe(this._eventOutput); // dragging
-          
-          surfaces.push(passView);
-
-          //click function to fire detail view
-
-          passView.on('click',this.passPurchasedPassView.createDetails.bind(passView));
-
-        }
-
-        this.add(backModifier).add(this.passScrollViewMod).add(this.passScrollView);
-
+        this.layout.content.add(this.passScrollViewMod).add(this.passScrollView);
 
       }
 
       function _setListeners() {
 
       }
+
+      function _setupEvents(){
+          this.hamburgerSurface.on('click',function(){
+              this._eventOutput.emit('menuToggle');
+          }.bind(this))
+      }
+
+    PassesView.prototype.addPassesItem = function(item){
+//        debugger
+        var passView = new PurchasedPassView({
+            gymName: item.gymName,
+            numDays: item.numDays,
+            price: item.price,
+            userID: item.userID
+        });
+
+        this._eventInput.pipe(passView);
+
+        passView.pipe(this.passScrollView); // scrolling
+
+        passView.pipe(this._eventOutput); // dragging
+
+        this.surfaces.push(passView);
+    };
 
 
   module.exports = PassesView;

@@ -140,6 +140,12 @@ define(function(require, exports, module) {
 //      this.pageView.gymListView.detail.slide.passViewMod.setTransform(Transform.translate(0,-window.innerHeight,0));
 //      this.pageView.gymListView.detail.slide.passViewMod.setOpacity(1);
     }.bind(this));
+    this._eventInput.on('showGymListView', function(){
+        this.pageView._eventInput.emit('showGymListView')
+    }.bind(this));
+    this._eventInput.on('showPassesView', function(){
+        this.pageView._eventInput.emit('showPassesView')
+    }.bind(this));
   }
 
   function _handleSwipe() {

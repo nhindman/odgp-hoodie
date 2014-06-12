@@ -89,6 +89,7 @@ define(function(require, exports, module) {
         this.backgroundSurface.on('click', function(e) {
           if(e.detail != null) return false;
           console.log("gym background surface clicked");
+          this._eventOutput.emit('showGymListView');
           this._eventOutput.emit('menuToggle');
           this._eventOutput.emit('resetTicket');
       }.bind(this));

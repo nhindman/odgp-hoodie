@@ -15,6 +15,7 @@ define(function(require, exports, module) {
         _createIcon.call(this);
         _createTitle.call(this);
         _setListeners.call(this);
+        _setEvents.call(this);
     }
 
     PassesStripView.prototype = Object.create(View.prototype);
@@ -94,6 +95,15 @@ define(function(require, exports, module) {
           this._eventOutput.emit('menuToggle');
           this._eventOutput.emit('resetTicket');
       }.bind(this));
+    }
+
+    function _setEvents(){
+        this.backgroundSurface.on('click',function(){
+            this._eventOutput.emit('showPassesView');
+            this._eventOutput.emit('menuToggle');
+            this._eventOutput.emit('resetTicket');
+        }.bind(this));
+
     }
 
     module.exports = PassesStripView;
