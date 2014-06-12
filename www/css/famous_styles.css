@@ -50,7 +50,7 @@ table {
   clear: both; }
 
 .cf {
-  *zoom: 1; }
+  zoom: 1; }
 
 body {
   color: #404040;

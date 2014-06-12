@@ -1,4 +1,4 @@
-var hoodie = new Hoodie();
+// var hoodie = new Hoodie();
 
 define(function(require, exports, module) {
   var AppView = require('src/examples/views/Scrollview/AppView.js');
@@ -35,7 +35,7 @@ define(function(require, exports, module) {
     var appViewBackground = new Surface({
       // size: (undefined, undefined),
       properties: {
-        backgroundColor: "red"
+        backgroundColor: "black"
       }
     });
 
